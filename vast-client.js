@@ -58,10 +58,8 @@ EventEmitter.prototype.emit = function(type) {
       er = arguments[1];
       if (er instanceof Error) {
         throw er; // Unhandled 'error' event
-      } else {
-        throw TypeError('Uncaught, unspecified "error" event.');
       }
-      return false;
+      throw TypeError('Uncaught, unspecified "error" event.');
     }
   }
 
@@ -438,6 +436,7 @@ VASTCreativeLinear = (function(_super) {
     this.mediaFiles = [];
     this.videoClickThroughURLTemplate = null;
     this.videoClickTrackingURLTemplates = [];
+    this.adParameters = "";
   }
 
   return VASTCreativeLinear;
@@ -835,6 +834,7 @@ VASTParser = (function() {
     if (creative.duration === -1 && creativeElement.parentNode.parentNode.parentNode.nodeName !== 'Wrapper') {
       return null;
     }
+    creative.adParameters = this.parseNodeText(this.childByName(creativeElement, "AdParameters"));
     skipOffset = creativeElement.getAttribute("skipoffset");
     if (skipOffset == null) {
       creative.skipDelay = null;

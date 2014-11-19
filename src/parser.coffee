@@ -210,6 +210,8 @@ class VASTParser
         if creative.duration == -1 and creativeElement.parentNode.parentNode.parentNode.nodeName != 'Wrapper'
             return null # can't parse duration, element is required
 
+        creative.adParameters = @parseNodeText(@childByName(creativeElement, "AdParameters"))
+
         skipOffset = creativeElement.getAttribute("skipoffset")
         if not skipOffset? then creative.skipDelay = null
         else if skipOffset.charAt(skipOffset.length - 1) is "%"
